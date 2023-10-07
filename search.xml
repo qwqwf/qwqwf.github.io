@@ -86,7 +86,17 @@
 <li><p>二分图中最小边覆盖覆盖等于最大独立集等于点数减去最小点覆盖。</p>
 </li>
 </ul>
-]]></content>
+<h4 id="P2765-魔术球问题"><a href="#P2765-魔术球问题" class="headerlink" title="P2765 魔术球问题"></a><a href="https://www.luogu.com.cn/problem/P2765">P2765 魔术球问题</a></h4><p>枚举答案 $i$ ，对于 $i+j&#x3D;a^2(i&gt;j)$ ，由于从小到大放，连 $i\rightarrow j$，求最小链覆盖若超过 $n$ 则 $i-1$ 为答案。</p>
+<p>构造方案同上。</p>
+<h4 id="P2766-最长不下降子序列问题"><a href="#P2766-最长不下降子序列问题" class="headerlink" title="P2766 最长不下降子序列问题"></a><a href="https://www.luogu.com.cn/problem/P2766">P2766 最长不下降子序列问题</a></h4><p>第一问水。</p>
+<p>不能发现一个性质，设 $f_i$ 表示以 $i$ 为结尾的 LIS 长度。在我选择的子序列作为答案中，其中的一个长度为 $s$ 的子序列上，两个相邻的元素 $x,y$ 必然满足$f_x&#x3D;f_y+1(y&lt;x)$。</p>
+<p>那么可以将问题转化为此类 $x,y$ 连 $y \rightarrow x$，求最多不交 $k$ 长链，同时每个点 $i$ 只能最为链上第 $p_i$ 个。</p>
+<p>建模：</p>
+<p>$S \xrightarrow{1} i(f_i&#x3D;1),i\xrightarrow{1}j(f_j&#x3D;f_i+1,a_i\leq a_j),i\xrightarrow{1} T(f_i&#x3D;s)$</p>
+<p>跑最大流即为所求。</p>
+<p>第三问同理的，只是 $S \xrightarrow{+\infty} 1,n \xrightarrow{+\infty} T(f_n&#x3D;s)$</p>
+<p>注意特判 $n&#x3D;1$。</p>
+<h4 id="P2770-航空路线问题"><a href="#P2770-航空路线问题" class="headerlink" title="P2770 航空路线问题"></a><a href="https://www.luogu.com.cn/problem/P2770">P2770 航空路线问题</a></h4>]]></content>
       <tags>
         <tag>网络流</tag>
         <tag>学习笔记</tag>
