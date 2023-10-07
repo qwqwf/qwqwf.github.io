@@ -21,17 +21,10 @@
   <entry>
     <title>『Record』网络流</title>
     <url>/2023/10/07/%E7%BD%91%E7%BB%9C%E6%B5%81/</url>
-    <content><![CDATA[<p>先写点<strong>基础</strong>的应用。</p>
-<ol>
-<li>最小割点</li>
-</ol>
-<p>即问题求解删点的贡献为 $w_i$ 下最小割。</p>
+    <content><![CDATA[<h2 id="经典模型总结"><a href="#经典模型总结" class="headerlink" title="经典模型总结"></a>经典模型总结</h2><h3 id="最小割点"><a href="#最小割点" class="headerlink" title="最小割点"></a>最小割点</h3><p>即问题求解删点的贡献为 $w_i$ 下最小割。</p>
 <p>经典拆点，考虑将点拆成 $u_{in},u_{out}$，连 $u_{in} \xrightarrow{w_u} u_{out}$。</p>
 <p>而对于原图边 $(u,v)$，连 $u_{out} \xrightarrow{+\infty} v_{in}$ 。</p>
-<ol start="2">
-<li>集合划分模型</li>
-</ol>
-<p>有一个经典的模型是这样的，给定 $E,c,a,b$，求解：</p>
+<h3 id="集合划分模型"><a href="#集合划分模型" class="headerlink" title="集合划分模型"></a>集合划分模型</h3><p>有一个经典的模型是这样的，给定 $E,c,a,b$，求解：</p>
 <p>$$\min_{x[1,2,\dots,n]} {\sum\limits_{(u,v)\in E} x_u \overline{x_v}c_{u,v}+\sum\limits_{i&#x3D;1}^{n} \left( x_ia_i+\overline{x_i}b_i \right) }$$</p>
 <p>其中 $x_i&#x3D;0 &#x2F;1$，而 $\overline{x_i}$ 为取反操作。</p>
 <p>考虑建模，首先对于任意 $i$ ，连 $S \xrightarrow{a_i} i \xrightarrow{b_i} T$。</p>
@@ -50,32 +43,28 @@
 <p>$(i,j)^{\prime}\xrightarrow{c_{i,j}} T,i \xrightarrow{b_i} T ,j \xrightarrow{b_j} T$</p>
 <p>$(i,j) \xrightarrow{+\infty} i,(i,j) \xrightarrow{+\infty} j,i \xrightarrow{+\infty} (i,j)^{\prime},j\xrightarrow{+\infty} (i,j)^{\prime}$</p>
 <p>这是不难理解的，可以手玩一下。</p>
-<ol start="3">
-<li>最大权闭合子图</li>
-</ol>
-<p>只讲建模，不讲证明，因为容易手玩。</p>
+<h3 id="最大权闭合子图"><a href="#最大权闭合子图" class="headerlink" title="最大权闭合子图"></a>最大权闭合子图</h3><p>只讲建模，不讲证明，因为容易手玩。</p>
 <p>$S \xrightarrow{a_i} i,a_i\geq 0$</p>
 <p>$i \xrightarrow{-a_i} T,a_i&lt; 0$</p>
 <p>$u \xrightarrow{+\infty} v,(u,v) \in E$</p>
 <p>答案即为 $\sum\limits_{a_i\geq 0} a_{i}-c$，其中 $c$ 为最小割。</p>
-<ol start="4">
-<li>有负环的费用流</li>
-</ol>
-<p>考虑类比上下界费用流，先转化为无源汇，考虑钦定负费用边必定流满，此处运用到网络流<strong>反悔</strong>的特殊性质。</p>
+<h3 id="有负环的费用流"><a href="#有负环的费用流" class="headerlink" title="有负环的费用流"></a>有负环的费用流</h3><p>考虑类比上下界费用流，先转化为无源汇，考虑钦定负费用边必定流满，此处运用到网络流<strong>反悔</strong>的特殊性质。</p>
 <p>同时删除原边，加入反边，将负费用取去绝对值，最后考虑加入虚源汇点，同理上下界建模即可。</p>
 <p>上下界只是应定流满下界，而此处只是应定直接流满，但是又不能直接跑费用流，因为仍然存在负环，所以直接考虑建出反边跑。</p>
 <p>注意，要在虚源汇，实源汇都跑一遍，这个和上下界最大&#x2F;小流同理。</p>
-<ol start="5">
-<li>最大费用最大流</li>
-</ol>
-<p>费用取反，然后跑有负环的费用流即可。</p>
-<h3 id="网络流24题"><a href="#网络流24题" class="headerlink" title="网络流24题"></a>网络流24题</h3><p><a href="https://www.luogu.com.cn/problem/P1251">P1251 餐巾计划问题</a></p>
-<p>拆点，分别维护干净的毛巾和脏的毛巾。</p>
+<h3 id="最大费用最大流"><a href="#最大费用最大流" class="headerlink" title="最大费用最大流"></a>最大费用最大流</h3><p>费用取反，然后跑有负环的费用流即可。</p>
+<h2 id="网络流24题"><a href="#网络流24题" class="headerlink" title="网络流24题"></a>网络流24题</h2><h3 id="P1251-餐巾计划问题"><a href="#P1251-餐巾计划问题" class="headerlink" title="P1251 餐巾计划问题"></a><a href="https://www.luogu.com.cn/problem/P1251">P1251 餐巾计划问题</a></h3><p>拆点，分别维护干净的毛巾和脏的毛巾。</p>
 <p>建模如下：</p>
 <p>$S \xrightarrow{(r_i,0)} i,i^{\prime} \xrightarrow{(r_i,0)} T,S \xrightarrow{(+\infty,p)} i^{\prime}$</p>
 <p>$i \xrightarrow{(+\infty,f)} (i+m)^{\prime},i \xrightarrow{(+\infty,s)} (i+n)^{\prime}$</p>
 <p>如果用了原始对偶优化复杂度就是 $O(n^2+fn\log n)$。</p>
-<p><a href="https://www.luogu.com.cn/problem/P2754">P2754 [CTSC1999] 家园 &#x2F; 星际转移问题</a></p>
+<h3 id="P2754-CTSC1999-家园-星际转移问题"><a href="#P2754-CTSC1999-家园-星际转移问题" class="headerlink" title="P2754 [CTSC1999] 家园 &#x2F; 星际转移问题"></a><a href="https://www.luogu.com.cn/problem/P2754">P2754 [CTSC1999] 家园 &#x2F; 星际转移问题</a></h3><p>飞船停靠站点与时间挂钩，考虑运用<strong>分层图</strong>思想。</p>
+<p>枚举答案 $t$，建模：</p>
+<p>设 $(x,y)$ 表示时间在 $x$ 的点 $y$。</p>
+<p>$S \xrightarrow{+\infty} (i,0),(i,j) \xrightarrow{+\infty} (i+1,j)$</p>
+<p>$(i,u) \xrightarrow{h_j} (i+1,v)$ ，其中 $u,v$ 是 $i$ 时刻到 $i+1$ 时刻 $j$ 号飞船的边上两点。</p>
+<p>可以在答案增量的后加边然后在残余网络上跑最大流。</p>
+<p>复杂度？。</p>
 ]]></content>
       <tags>
         <tag>网络流</tag>
