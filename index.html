@@ -352,7 +352,7 @@
                 
               
 
-              <time title="创建时间：2023-10-07 10:44:14 / 修改时间：15:24:50" itemprop="dateCreated datePublished" datetime="2023-10-07T10:44:14+08:00">2023-10-07</time>
+              <time title="创建时间：2023-10-07 10:44:14 / 修改时间：16:50:12" itemprop="dateCreated datePublished" datetime="2023-10-07T10:44:14+08:00">2023-10-07</time>
             
 
             
@@ -384,7 +384,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3.4k</span>
+                <span title="本文字数">4.8k</span>
               
 
               
@@ -398,7 +398,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">3 分钟</span>
+                <span title="阅读时长">4 分钟</span>
               
             </div>
           
@@ -420,10 +420,10 @@
       
         
           
-            <h2 id="经典模型总结"><a href="#经典模型总结" class="headerlink" title="经典模型总结"></a>经典模型总结</h2><h3 id="最小割点"><a href="#最小割点" class="headerlink" title="最小割点"></a>最小割点</h3><p>即问题求解删点的贡献为 $w_i$ 下最小割。</p>
+            <h2 id="经典模型总结"><a href="#经典模型总结" class="headerlink" title="经典模型总结"></a>经典模型总结</h2><h4 id="最小割点"><a href="#最小割点" class="headerlink" title="最小割点"></a>最小割点</h4><p>即问题求解删点的贡献为 $w_i$ 下最小割。</p>
 <p>经典拆点，考虑将点拆成 $u_{in},u_{out}$，连 $u_{in} \xrightarrow{w_u} u_{out}$。</p>
 <p>而对于原图边 $(u,v)$，连 $u_{out} \xrightarrow{+\infty} v_{in}$ 。</p>
-<h3 id="集合划分模型"><a href="#集合划分模型" class="headerlink" title="集合划分模型"></a>集合划分模型</h3><p>有一个经典的模型是这样的，给定 $E,c,a,b$，求解：</p>
+<h4 id="集合划分模型"><a href="#集合划分模型" class="headerlink" title="集合划分模型"></a>集合划分模型</h4><p>有一个经典的模型是这样的，给定 $E,c,a,b$，求解：</p>
 <p>$$\min_{x[1,2,\dots,n]} {\sum\limits_{(u,v)\in E} x_u \overline{x_v}c_{u,v}+\sum\limits_{i&#x3D;1}^{n} \left( x_ia_i+\overline{x_i}b_i \right) }$$</p>
 <p>其中 $x_i&#x3D;0 &#x2F;1$，而 $\overline{x_i}$ 为取反操作。</p>
 <p>考虑建模，首先对于任意 $i$ ，连 $S \xrightarrow{a_i} i \xrightarrow{b_i} T$。</p>
@@ -442,28 +442,49 @@
 <p>$(i,j)^{\prime}\xrightarrow{c_{i,j}} T,i \xrightarrow{b_i} T ,j \xrightarrow{b_j} T$</p>
 <p>$(i,j) \xrightarrow{+\infty} i,(i,j) \xrightarrow{+\infty} j,i \xrightarrow{+\infty} (i,j)^{\prime},j\xrightarrow{+\infty} (i,j)^{\prime}$</p>
 <p>这是不难理解的，可以手玩一下。</p>
-<h3 id="最大权闭合子图"><a href="#最大权闭合子图" class="headerlink" title="最大权闭合子图"></a>最大权闭合子图</h3><p>只讲建模，不讲证明，因为容易手玩。</p>
+<h4 id="最大权闭合子图"><a href="#最大权闭合子图" class="headerlink" title="最大权闭合子图"></a>最大权闭合子图</h4><p>只讲建模，不讲证明，因为容易手玩。</p>
 <p>$S \xrightarrow{a_i} i,a_i\geq 0$</p>
 <p>$i \xrightarrow{-a_i} T,a_i&lt; 0$</p>
 <p>$u \xrightarrow{+\infty} v,(u,v) \in E$</p>
 <p>答案即为 $\sum\limits_{a_i\geq 0} a_{i}-c$，其中 $c$ 为最小割。</p>
-<h3 id="有负环的费用流"><a href="#有负环的费用流" class="headerlink" title="有负环的费用流"></a>有负环的费用流</h3><p>考虑类比上下界费用流，先转化为无源汇，考虑钦定负费用边必定流满，此处运用到网络流<strong>反悔</strong>的特殊性质。</p>
+<h4 id="有负环的费用流"><a href="#有负环的费用流" class="headerlink" title="有负环的费用流"></a>有负环的费用流</h4><p>考虑类比上下界费用流，先转化为无源汇，考虑钦定负费用边必定流满，此处运用到网络流<strong>反悔</strong>的特殊性质。</p>
 <p>同时删除原边，加入反边，将负费用取去绝对值，最后考虑加入虚源汇点，同理上下界建模即可。</p>
 <p>上下界只是应定流满下界，而此处只是应定直接流满，但是又不能直接跑费用流，因为仍然存在负环，所以直接考虑建出反边跑。</p>
 <p>注意，要在虚源汇，实源汇都跑一遍，这个和上下界最大&#x2F;小流同理。</p>
-<h3 id="最大费用最大流"><a href="#最大费用最大流" class="headerlink" title="最大费用最大流"></a>最大费用最大流</h3><p>费用取反，然后跑有负环的费用流即可。</p>
-<h2 id="网络流24题"><a href="#网络流24题" class="headerlink" title="网络流24题"></a>网络流24题</h2><h3 id="P1251-餐巾计划问题"><a href="#P1251-餐巾计划问题" class="headerlink" title="P1251 餐巾计划问题"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1251">P1251 餐巾计划问题</a></h3><p>拆点，分别维护干净的毛巾和脏的毛巾。</p>
+<h4 id="最大费用最大流"><a href="#最大费用最大流" class="headerlink" title="最大费用最大流"></a>最大费用最大流</h4><p>费用取反，然后跑有负环的费用流即可。</p>
+<h2 id="网络流24题"><a href="#网络流24题" class="headerlink" title="网络流24题"></a>网络流24题</h2><h4 id="P1251-餐巾计划问题"><a href="#P1251-餐巾计划问题" class="headerlink" title="P1251 餐巾计划问题"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1251">P1251 餐巾计划问题</a></h4><p>拆点，分别维护干净的毛巾和脏的毛巾。</p>
 <p>建模如下：</p>
 <p>$S \xrightarrow{(r_i,0)} i,i^{\prime} \xrightarrow{(r_i,0)} T,S \xrightarrow{(+\infty,p)} i^{\prime}$</p>
 <p>$i \xrightarrow{(+\infty,f)} (i+m)^{\prime},i \xrightarrow{(+\infty,s)} (i+n)^{\prime}$</p>
 <p>如果用了原始对偶优化复杂度就是 $O(n^2+fn\log n)$。</p>
-<h3 id="P2754-CTSC1999-家园-星际转移问题"><a href="#P2754-CTSC1999-家园-星际转移问题" class="headerlink" title="P2754 [CTSC1999] 家园 &#x2F; 星际转移问题"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2754">P2754 [CTSC1999] 家园 &#x2F; 星际转移问题</a></h3><p>飞船停靠站点与时间挂钩，考虑运用<strong>分层图</strong>思想。</p>
+<h4 id="P2754-CTSC1999-家园-星际转移问题"><a href="#P2754-CTSC1999-家园-星际转移问题" class="headerlink" title="P2754 [CTSC1999] 家园 &#x2F; 星际转移问题"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2754">P2754 [CTSC1999] 家园 &#x2F; 星际转移问题</a></h4><p>飞船停靠站点与时间挂钩，考虑运用<strong>分层图</strong>思想。</p>
 <p>枚举答案 $t$，建模：</p>
 <p>设 $(x,y)$ 表示时间在 $x$ 的点 $y$。</p>
 <p>$S \xrightarrow{+\infty} (i,0),(i,j) \xrightarrow{+\infty} (i+1,j)$</p>
 <p>$(i,u) \xrightarrow{h_j} (i+1,v)$ ，其中 $u,v$ 是 $i$ 时刻到 $i+1$ 时刻 $j$ 号飞船的边上两点。</p>
 <p>可以在答案增量的后加边然后在残余网络上跑最大流。</p>
 <p>复杂度？。</p>
+<h4 id="P2756-飞行员配对方案问题"><a href="#P2756-飞行员配对方案问题" class="headerlink" title="P2756 飞行员配对方案问题"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2756">P2756 飞行员配对方案问题</a></h4><p>二分图最大匹配模板。</p>
+<h4 id="P2761-软件补丁问题"><a href="#P2761-软件补丁问题" class="headerlink" title="P2761 软件补丁问题"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2761">P2761 软件补丁问题</a></h4><p>一个bug 有两种状态，出现或者没出现，状压每种状态，然后 dij 转移即可。</p>
+<h4 id="P2762-太空飞行计划问题"><a href="#P2762-太空飞行计划问题" class="headerlink" title="P2762 太空飞行计划问题"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2762">P2762 太空飞行计划问题</a></h4><p>将实验和仪器都看成是点，一个实验向需要的一起连边，就是一个最大权闭合子图问题。</p>
+<h4 id="P2763-试题库问题"><a href="#P2763-试题库问题" class="headerlink" title="P2763 试题库问题"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2763">P2763 试题库问题</a></h4><p>经典建模：</p>
+<p>$S \xrightarrow{1} i,i\xrightarrow{1}n+j,n+i\xrightarrow{p_i} T$</p>
+<p>其中 $i\xrightarrow{1}n+j$ 是第 $i$ 个试题选择 $j$ 类型。</p>
+<p>构造方案判流满否。</p>
+<h4 id="P2764-最小路径覆盖问题"><a href="#P2764-最小路径覆盖问题" class="headerlink" title="P2764 最小路径覆盖问题"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2764">P2764 最小路径覆盖问题</a></h4><p>DAG 不交最小链覆盖。</p>
+<p>拆入点和出点，对于原图中边 $(u,v)$ 连$u_{out} \xrightarrow{+\infty} v_{in}$。</p>
+<p>答案即为 $n-m$，其中 $n$ 为点数，$m$ 为最大匹配。</p>
+<p>扩展：</p>
+<ul>
+<li><p>Dilworth 定理，偏序集中，最长反链等于最小链覆盖。</p>
+</li>
+<li><p>DAG 有交最小链覆盖，按照以传递闭包建出的邻接表求不交最小链覆盖即为所求。</p>
+</li>
+<li><p>二分图中的最小点覆盖等于最大匹配。</p>
+</li>
+<li><p>二分图中最小边覆盖覆盖等于最大独立集等于点数减去最小点覆盖。</p>
+</li>
+</ul>
 
           
         
@@ -829,7 +850,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">2k</span>
+    <span title="站点总字数">3k</span>
   
 
   
@@ -838,7 +859,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">2 分钟</span>
+    <span title="站点阅读时长">3 分钟</span>
   
 </div>
 
