@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World</title>
+    <url>/2023/10/05/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>『Record』网络流</title>
+    <url>/2023/10/07/%E7%BD%91%E7%BB%9C%E6%B5%81/</url>
+    <content><![CDATA[<p>先写点<strong>基础</strong>的应用。</p>
+<ol>
+<li>最小割点</li>
+</ol>
+<p>即问题求解删点的贡献为 $w_i$ 下最小割。</p>
+<p>经典拆点，考虑将点拆成 $u_{in},u_{out}$，连 $u_{in} \xrightarrow{w_u} u_{out}$。</p>
+<p>而对于原图边 $(u,v)$，连 $u_{out} \xrightarrow{+\infty} v_{in}$ 。</p>
+<ol start="2">
+<li>集合划分模型</li>
+</ol>
+<p>有一个经典的模型是这样的，给定 $E,c,a,b$，求解：</p>
+<p>$$\min_{x[1,2,\dots,n]} {\sum\limits_{(u,v)\in E} x_u \overline{x_v}c_{u,v}+\sum\limits_{i&#x3D;1}^{n} \left( x_ia_i+\overline{x_i}b_i \right) }$$</p>
+<p>其中 $x_i&#x3D;0 &#x2F;1$，而 $\overline{x_i}$ 为取反操作。</p>
+<p>考虑建模，首先对于任意 $i$ ，连 $S \xrightarrow{a_i} i \xrightarrow{b_i} T$。</p>
+<p>对于 $(u,v) \in E$，连 $u \longleftrightarrow v$ 流量为 $c_{u,v}$。</p>
+<p>一些奇怪的问题：</p>
+<ul>
+<li><p>对于存在 $a_i,b_i$ 有负数的情况，考虑由于 $a_i,b_i$ 必定会有一个被选择，则考虑给 $a_i,b_i$ 同时加上一个极大值，最后贡献减去即可。</p>
+</li>
+<li><p>对于要求限制为 $x_u&#x3D;0 \ \text{and}  \ x_v&#x3D;1$ 对式子有 $c_{u,v}$ 的贡献，此时连<strong>单向边</strong>即可。</p>
+</li>
+</ul>
+<p>有个变式：</p>
+<p>$$\max_{x[1,2,\dots,n]} {\sum\limits_{(u,v)\in E} \left(x_ux_vc_{u,v} +\overline{x_u} \overline{x_v}c_{u,v}\right) +\sum\limits_{i&#x3D;1}^{n} \left( x_ia_i+\overline{x_i}b_i \right) }$$</p>
+<p>同理的，不过考虑割掉的边表示不选：</p>
+<p>$S \xrightarrow{c_{i,j}} (i,j),S \xrightarrow{a_i} i,S \xrightarrow{a_j} j$</p>
+<p>$(i,j)^{\prime}\xrightarrow{c_{i,j}} T,i \xrightarrow{b_i} T ,j \xrightarrow{b_j} T$</p>
+<p>$(i,j) \xrightarrow{+\infty} i,(i,j) \xrightarrow{+\infty} j,i \xrightarrow{+\infty} (i,j)^{\prime},j\xrightarrow{+\infty} (i,j)^{\prime}$</p>
+<p>这是不难理解的，可以手玩一下。</p>
+<ol start="3">
+<li>最大权闭合子图</li>
+</ol>
+<p>只讲建模，不讲证明，因为容易手玩。</p>
+<p>$S \xrightarrow{a_i} i,a_i\geq 0$</p>
+<p>$i \xrightarrow{-a_i} T,a_i&lt; 0$</p>
+<p>$u \xrightarrow{+\infty} v,(u,v) \in E$</p>
+<p>答案即为 $\sum\limits_{a_i\geq 0} a_{i}-c$，其中 $c$ 为最小割。</p>
+<ol start="4">
+<li>有负环的费用流</li>
+</ol>
+<p>考虑类比上下界费用流，先转化为无源汇，考虑钦定负费用边必定流满，此处运用到网络流<strong>反悔</strong>的特殊性质。</p>
+<p>同时删除原边，加入反边，将负费用取去绝对值，最后考虑加入虚源汇点，同理上下界建模即可。</p>
+<p>上下界只是应定流满下界，而此处只是应定直接流满，但是又不能直接跑费用流，因为仍然存在负环，所以直接考虑建出反边跑。</p>
+<p>注意，要在虚源汇，实源汇都跑一遍，这个和上下界最大&#x2F;小流同理。</p>
+<ol start="5">
+<li>最大费用最大流</li>
+</ol>
+<p>费用取反，然后跑有负环的费用流即可。</p>
+<h3 id="网络流24题"><a href="#网络流24题" class="headerlink" title="网络流24题"></a>网络流24题</h3><p><a href="https://www.luogu.com.cn/problem/P1251">P1251 餐巾计划问题</a></p>
+<p>拆点，分别维护干净的毛巾和脏的毛巾。</p>
+<p>建模如下：</p>
+<p>$S \xrightarrow{(r_i,0)} i,i^{\prime} \xrightarrow{(r_i,0)} T,S \xrightarrow{(+\infty,p)} i^{\prime}$</p>
+<p>$i \xrightarrow{(+\infty,f)} (i+m)^{\prime},i \xrightarrow{(+\infty,s)} (i+n)^{\prime}$</p>
+<p>如果用了原始对偶优化复杂度就是 $O(n^2+fn\log n)$。</p>
+<p><a href="https://www.luogu.com.cn/problem/P2754">P2754 [CTSC1999] 家园 &#x2F; 星际转移问题</a></p>
+]]></content>
+      <tags>
+        <tag>网络流</tag>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+</search>
