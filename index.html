@@ -713,7 +713,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-10-09 09:53:26" itemprop="dateModified" datetime="2023-10-09T09:53:26+08:00">2023-10-09</time>
+                <time title="修改时间：2023-10-09 22:28:54" itemprop="dateModified" datetime="2023-10-09T22:28:54+08:00">2023-10-09</time>
               
             
           </span>
@@ -866,6 +866,10 @@
 <p>相邻边连容量为 $+\infty$ 费用为 $1$ 的边。</p>
 <h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><h4 id="P2805-NOI2009-植物大战僵尸"><a href="#P2805-NOI2009-植物大战僵尸" class="headerlink" title="[P2805 NOI2009] 植物大战僵尸"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2805">[P2805 NOI2009] 植物大战僵尸</a></h4><p>考虑将保护关系表示为，选什么之前必定要选什么，这和选一个点之前一定要右侧点限制同理。</p>
 <p>如果选 $u$ 前必须选 $v$ 那么连 $u \rightarrow v$，然后将环去掉后跑最大权闭合子图即可。</p>
+<h4 id="P5192【模板】有源汇上下界最大流"><a href="#P5192【模板】有源汇上下界最大流" class="headerlink" title="P5192【模板】有源汇上下界最大流"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5192">P5192【模板】有源汇上下界最大流</a></h4><p>模板题？</p>
+<p>建模：</p>
+<p>$S \xrightarrow{[0,D_i]} i,i\xrightarrow{[L_{i,k_i},R_{i,k_i}]} n+k_i,n+i \xrightarrow{[G_i,+\infty]} T$</p>
+<p>直接跑上下界最大流即可。</p>
 
           
         
