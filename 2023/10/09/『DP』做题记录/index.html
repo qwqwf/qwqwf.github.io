@@ -96,7 +96,7 @@
 <meta property="og:description" content="AGC046D发现一个当前操作后的状态可以用一个三元组 $(i,j,k)$ 表示 $(i,n]$ 这段后缀没被删除，有 $j$ 个 $0$ 可以随便放，$k$ 个 $1$ 可以随便放。 考虑到对于一个最终的 $01$ 串可能对应多个三元组 $(i,j,k)$，考虑构造 $01$ 串到 $(i,j,k)$ 的单射。 有一个比较自然的想法是拿最终 $01$ 串的子序列和初始串的后缀做匹配。 假设匹配到">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-09T01:49:56.000Z">
-<meta property="article:modified_time" content="2023-10-09T03:46:28.141Z">
+<meta property="article:modified_time" content="2023-10-09T09:03:59.957Z">
 <meta property="article:author" content="qwqwf">
 <meta property="article:tag" content="DP">
 <meta name="twitter:card" content="summary">
@@ -354,7 +354,7 @@
                 
               
 
-              <time title="创建时间：2023-10-09 09:49:56 / 修改时间：11:46:28" itemprop="dateCreated datePublished" datetime="2023-10-09T09:49:56+08:00">2023-10-09</time>
+              <time title="创建时间：2023-10-09 09:49:56 / 修改时间：17:03:59" itemprop="dateCreated datePublished" datetime="2023-10-09T09:49:56+08:00">2023-10-09</time>
             
 
             
@@ -405,6 +405,27 @@
 <p>实际上都是不难 dp 的，转移都是容易的，这部分留给读者思考。</p>
 <p>Code：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);cin.<span class="built_in">tie</span>(<span class="number">0</span>);cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">cin&gt;&gt;s+<span class="number">1</span>;n=<span class="built_in">strlen</span>(s+<span class="number">1</span>);</span><br><span class="line">g[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>]=f[n][<span class="number">0</span>][<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) <span class="keyword">for</span>(<span class="type">int</span> j=n;~j;j--) <span class="keyword">for</span>(<span class="type">int</span> k=n;~k;k--)&#123;</span><br><span class="line">    g[i][j][k]|=g[i<span class="number">-1</span>][j][k]|g[i][j+<span class="number">1</span>][k]|g[i][j][k+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span>(i&gt;<span class="number">1</span>&amp;&amp;(s[i]==<span class="string">&#x27;0&#x27;</span>||s[i<span class="number">-1</span>]==<span class="string">&#x27;0&#x27;</span>)&amp;&amp;j) g[i][j][k]|=g[i<span class="number">-2</span>][j<span class="number">-1</span>][k];</span><br><span class="line">    <span class="keyword">if</span>(i&gt;<span class="number">1</span>&amp;&amp;(s[i]==<span class="string">&#x27;1&#x27;</span>||s[i<span class="number">-1</span>]==<span class="string">&#x27;1&#x27;</span>)&amp;&amp;k) g[i][j][k]|=g[i<span class="number">-2</span>][j][k<span class="number">-1</span>];</span><br><span class="line">    <span class="keyword">if</span>(j&amp;&amp;s[i]==<span class="string">&#x27;0&#x27;</span>) g[i][j][k]|=g[i<span class="number">-1</span>][j<span class="number">-1</span>][k+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span>(k&amp;&amp;s[i]==<span class="string">&#x27;1&#x27;</span>) g[i][j][k]|=g[i<span class="number">-1</span>][j+<span class="number">1</span>][k<span class="number">-1</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=n;i;i--) <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;=n;j++) <span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">0</span>;k&lt;=n;k++)&#123;</span><br><span class="line">    f[i<span class="number">-1</span>][j][k]=(f[i<span class="number">-1</span>][j][k]+f[i][j][k])%mod;</span><br><span class="line">    <span class="keyword">if</span>(s[i]==<span class="string">&#x27;1&#x27;</span>) f[i][j+<span class="number">1</span>][k]=(f[i][j+<span class="number">1</span>][k]+f[i][j][k])%mod;</span><br><span class="line">    <span class="keyword">else</span> f[i][j][k+<span class="number">1</span>]=(f[i][j][k+<span class="number">1</span>]+f[i][j][k])%mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=n;i++) <span class="keyword">for</span>(<span class="type">int</span> j=n;~j;j--) <span class="keyword">for</span>(<span class="type">int</span> k=n;~k;k--) <span class="keyword">if</span>(g[i][j][k]) ans=(ans+f[i][j][k])%mod;</span><br><span class="line">cout&lt;&lt;(ans+mod<span class="number">-1</span>)%mod&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="CF1097H"><a href="#CF1097H" class="headerlink" title="CF1097H"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1097H">CF1097H</a></h4><p>问题很复杂的情况下，先考虑较为简单的情况。</p>
+<p>讨论一下 $|B|&#x3D;1$ 怎么做：</p>
+<p>$f_{i,j}$ 表示 $M_{+\infty}$ 的前缀 $[0,d^i)$ 集体加 $j$ 的答案。</p>
+<p>不难得出，$f_{i,j}&#x3D;\sum_{k&#x3D;1}^{d} f_{i-1,(j+gen_{k}) \bmod \ a}$</p>
+<p>答案差分一下就可以求了。</p>
+<p>$|B|&gt;1$，考虑类似 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF177G2">CF177G2</a> 的做法，将串匹配分治做，对于子问题类似上述 dp 做即可，而问题在于两个子问题间对答案的贡献。</p>
+<p>这个维护方式是很有启发性的，比较新鲜的维护方式。</p>
+<p>就是考虑一个子问题内部维护两个数组，$pre_i,suf_i$ 分别表示对于 $b$ 数列去掉前 $i$ 个元素和当前整个子问题的前缀<strong>是否能匹配</strong>，对于 $b$ 数列之保留前 $i$ 个元素和当前整个子问题的后缀<strong>是否能匹配</strong>。</p>
+<p>注意两个点：</p>
+<ol>
+<li><p>这个状态是是否，也就是说如果我能通过位移等简单二进制运算维护，那么可以通过 bitset 优化复杂度。</p>
+</li>
+<li><p>这里匹配是指，对于一个前后缀和当前剩下的 $b$ 序列按照顺序比较，若前后缀不够比较，通过补 $0$ 比较至 $b$ 全部剩下元素比较玩，而这里的比较则与题面中的比较方式无异。</p>
+</li>
+</ol>
+<p>这部分的贡献是容易合并的，具体合并方式自行手玩或者看代码。</p>
+<p>且不难发现这部分合并是可以通过 bitset 优化的，复杂度 $O(\dfrac{nmd\log_{d}r}{\omega})$。</p>
+<p>代码之放下了数据维护的部分，其他内容容易写出。</p>
+<p>Code：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span>&#123;</span><br><span class="line">	<span class="type">int</span> ans,len;</span><br><span class="line">	bitset&lt;N&gt; pre,suf;</span><br><span class="line">&#125;f[M][M];</span><br><span class="line"><span class="keyword">inline</span> Node <span class="keyword">operator</span> +(Node a,Node b)&#123;</span><br><span class="line">	<span class="keyword">if</span>(!a.len) <span class="keyword">return</span> b;</span><br><span class="line">	Node res;res.ans=a.ans+b.ans;</span><br><span class="line">	res.len=a.len+b.len;res.pre=a.pre,res.suf=b.suf;</span><br><span class="line">	<span class="keyword">if</span>(a.len&lt;n<span class="number">-1</span>) res.pre&amp;=(b.pre&gt;&gt;a.len)|(e&lt;&lt;n<span class="number">-1</span>-a.len);</span><br><span class="line">	<span class="keyword">if</span>(b.len&lt;n<span class="number">-1</span>) res.suf&amp;=(a.suf&lt;&lt;b.len)|(e&gt;&gt;n<span class="number">-1</span>-b.len);</span><br><span class="line">	<span class="keyword">if</span>(res.len&gt;=n)&#123;</span><br><span class="line">		bitset&lt;N&gt; u=a.suf&amp;b.pre;</span><br><span class="line">		<span class="keyword">if</span>(a.len&lt;n<span class="number">-1</span>) u&amp;=(e&gt;&gt;n<span class="number">-1</span>-a.len);</span><br><span class="line">		<span class="keyword">if</span>(b.len&lt;n<span class="number">-1</span>) u&amp;=(e&lt;&lt;n<span class="number">-1</span>-b.len);</span><br><span class="line">		res.ans+=u.<span class="built_in">count</span>();</span><br><span class="line">	&#125;<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -594,7 +615,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#AGC046D"><span class="nav-number">1.</span> <span class="nav-text">AGC046D</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#AGC046D"><span class="nav-number">1.</span> <span class="nav-text">AGC046D</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CF1097H"><span class="nav-number">2.</span> <span class="nav-text">CF1097H</span></a></li></ol></div>
             
 
           </div>
