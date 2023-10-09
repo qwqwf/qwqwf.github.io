@@ -137,7 +137,7 @@
 <h4 id="P4015-运输问题"><a href="#P4015-运输问题" class="headerlink" title="P4015 运输问题"></a><a href="https://www.luogu.com.cn/problem/P4015">P4015 运输问题</a></h4><p>同上。</p>
 <h4 id="P4016-负载平衡问题"><a href="#P4016-负载平衡问题" class="headerlink" title="P4016 负载平衡问题"></a><a href="https://www.luogu.com.cn/problem/P4016">P4016 负载平衡问题</a></h4><p>类似上下界网络流，算出 $avg$，若 $a_i&lt;avg$，连 $S\xrightarrow{(avg-a_i,0)}i$，若 $a_i&gt;avg$，连 $i\xrightarrow{(a_i-avg,0)}T$</p>
 <p>相邻边连容量为 $+\infty$ 费用为 $1$ 的边。</p>
-<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3>]]></content>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2>]]></content>
       <tags>
         <tag>网络流</tag>
         <tag>学习笔记</tag>
