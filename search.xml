@@ -19,6 +19,21 @@
 ]]></content>
   </entry>
   <entry>
+    <title>『DS』做题记录</title>
+    <url>/2023/10/09/%E3%80%8EDS%E3%80%8F%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<h4 id="CF1491H"><a href="#CF1491H" class="headerlink" title="CF1491H"></a><a href="https://www.luogu.com.cn/problem/CF1491H">CF1491H</a></h4><p>这题感觉没有 *3400，虚高。</p>
+<p>分块，维护每个点第一次跳出这个块的祖先。</p>
+<p>查询容易做到 $O(\sqrt{n})$，考虑修改。</p>
+<p>这个想要做每次严格的 $O(\sqrt{n})$ 有点难，不妨想一下做什么类似均摊复杂度 $O(n \sqrt{n})$。</p>
+<p>这题的特殊祖辈关系方式和修改操作十分有启发意义。</p>
+<p>不难发现一个整块进行超过 $O(\sqrt{n})$ 次修改每个点都会一步跳出这个块，那么只需要一个整块被修改超过 $O(\sqrt{n})$ 次记 $tag$ $O(1)$ 修改即可，而之前的 $O(\sqrt{n})$ 修改直接保留更新整块，散块正常修改即可。</p>
+<p>复杂度 $O(n \sqrt{n})$。</p>
+]]></content>
+      <tags>
+        <tag>DS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>『DP』做题记录</title>
     <url>/2023/10/09/%E3%80%8EDP%E3%80%8F%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<h4 id="AGC046D"><a href="#AGC046D" class="headerlink" title="AGC046D"></a><a href="https://www.luogu.com.cn/problem/AT_agc046_d">AGC046D</a></h4><p>发现一个当前操作后的状态可以用一个三元组 $(i,j,k)$ 表示 $(i,n]$ 这段后缀没被删除，有 $j$ 个 $0$ 可以随便放，$k$ 个 $1$ 可以随便放。</p>
