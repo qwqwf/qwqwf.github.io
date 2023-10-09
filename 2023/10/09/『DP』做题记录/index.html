@@ -96,7 +96,7 @@
 <meta property="og:description" content="AGC046D发现一个当前操作后的状态可以用一个三元组 $(i,j,k)$ 表示 $(i,n]$ 这段后缀没被删除，有 $j$ 个 $0$ 可以随便放，$k$ 个 $1$ 可以随便放。 考虑到对于一个最终的 $01$ 串可能对应多个三元组 $(i,j,k)$，考虑构造 $01$ 串到 $(i,j,k)$ 的单射。 有一个比较自然的想法是拿最终 $01$ 串的子序列和初始串的后缀做匹配。 假设匹配到">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-09T01:49:56.000Z">
-<meta property="article:modified_time" content="2023-10-09T11:26:01.454Z">
+<meta property="article:modified_time" content="2023-10-09T13:25:46.052Z">
 <meta property="article:author" content="qwqwf">
 <meta property="article:tag" content="DP">
 <meta name="twitter:card" content="summary">
@@ -354,7 +354,7 @@
                 
               
 
-              <time title="创建时间：2023-10-09 09:49:56 / 修改时间：19:26:01" itemprop="dateCreated datePublished" datetime="2023-10-09T09:49:56+08:00">2023-10-09</time>
+              <time title="创建时间：2023-10-09 09:49:56 / 修改时间：21:25:46" itemprop="dateCreated datePublished" datetime="2023-10-09T09:49:56+08:00">2023-10-09</time>
             
 
             
@@ -438,6 +438,15 @@
 <p>也就是这时候的贡献系数应当是 $\sum\limits_{i&#x3D;0}^{n-1} \dbinom{n-1}{i}\dbinom{m}{n-i}&#x3D;\sum\limits_{i&#x3D;0}^{n} \dbinom{n-1}{i}\dbinom{m}{n-i}&#x3D;\dbinom{m+n-1}{n}$。</p>
 <p>转移方程就是 $f_{i,j}&#x3D;\sum\limits_{x&lt;i} \sum\limits_{y&lt;j} f_{x,y} \dbinom{m+n-1}{n}$。</p>
 <p>用前缀和技巧就可以做到 $O(n^3)$。</p>
+<h4 id="ARC118E"><a href="#ARC118E" class="headerlink" title="ARC118E"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_arc118_e">ARC118E</a></h4><p>组合意义不好考虑的情况下，可以先考虑形式化答案。</p>
+<p>不妨设某一个合法的障碍点集为 $P$，设题目给定的障碍点集为 $Q$，一条合法路径为 $S$。</p>
+<p>那么答案即为：$\sum\limits_{S} \sum\limits_{Q \subseteq P} [S \bigcap P&#x3D;\varnothing]$</p>
+<p>经典二项式定理容斥出来：$\sum\limits_{S} \sum\limits_{Q \subseteq P} \sum\limits_{T\subseteq S \bigcap P} (-1)^{|T|}&#x3D;\sum\limits_{S}\sum\limits_{T\subseteq S} (-1)^{|T|} \sum\limits_{Q\bigcup T \subseteq P} 1&#x3D;\sum\limits_{S}\sum\limits_{T\subseteq S} (-1)^{|T|} (n-|Q\bigcup T|)!$</p>
+<p>注意：这里 $\sum\limits_{Q\bigcup T \subseteq P} 1&#x3D;(n-|Q\bigcup T|)!$ 当且仅当 $Q\bigcup T$ 是一个合法的障碍集合，所以算的时候要判断 $Q\bigcup T$ 是否为合法障碍。</p>
+<p>考虑通过 dp 算出最后面的那个式子把容斥系数塞到 dp 里算即可，设 $f_{i,j,k,0&#x2F;1,0&#x2F;1}$ 表示当前 $S$ 到达了 $(i,j)$ ，$|Q\bigcup T|&#x3D;k$ 的答案，转移的话就考虑往 $(i+1,j)&#x2F;(i,j+1)$ 转移即可，转移是容易的，不讲，$O(n^3)$。</p>
+<p>Code：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">f[<span class="number">0</span>][<span class="number">0</span>][tot][<span class="number">0</span>][<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=n+<span class="number">1</span>;i++) <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;=n+<span class="number">1</span>;j++) <span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">0</span>;k&lt;=n;k++) <span class="keyword">for</span>(<span class="type">int</span> p=<span class="number">0</span>;p&lt;<span class="number">2</span>;p++) <span class="keyword">for</span>(<span class="type">int</span> q=<span class="number">0</span>;q&lt;<span class="number">2</span>;q++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;=n)&#123;</span><br><span class="line">        (f[i+<span class="number">1</span>][j][k][<span class="number">0</span>][q]+=f[i][j][k][p][q])%=mod;</span><br><span class="line">        <span class="keyword">if</span>(!q&amp;&amp;i&lt;n&amp;&amp;<span class="number">1</span>&lt;=j&amp;&amp;j&lt;=n&amp;&amp;(a[i+<span class="number">1</span>]==j||(a[i+<span class="number">1</span>]==<span class="number">-1</span>&amp;&amp;!vis[j])))</span><br><span class="line">            (f[i+<span class="number">1</span>][j][k+(a[i+<span class="number">1</span>]!=j)][<span class="number">1</span>][<span class="number">1</span>]+=mod-f[i][j][k][p][q])%=mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(j&lt;=n)&#123;</span><br><span class="line">        (f[i][j+<span class="number">1</span>][k][p][<span class="number">0</span>]+=f[i][j][k][p][q])%=mod;</span><br><span class="line">        <span class="keyword">if</span>(!p&amp;&amp;j&lt;n&amp;&amp;<span class="number">1</span>&lt;=i&amp;&amp;i&lt;=n&amp;&amp;(a[i]==j+<span class="number">1</span>||(a[i]==<span class="number">-1</span>&amp;&amp;!vis[j+<span class="number">1</span>])))</span><br><span class="line">            (f[i][j+<span class="number">1</span>][k+(a[i]!=j+<span class="number">1</span>)][<span class="number">1</span>][<span class="number">1</span>]+=mod-f[i][j][k][p][q])%=mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -632,7 +641,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#AGC046D"><span class="nav-number">1.</span> <span class="nav-text">AGC046D</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CF1097H"><span class="nav-number">2.</span> <span class="nav-text">CF1097H</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#P3643"><span class="nav-number">3.</span> <span class="nav-text">P3643</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#AGC046D"><span class="nav-number">1.</span> <span class="nav-text">AGC046D</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CF1097H"><span class="nav-number">2.</span> <span class="nav-text">CF1097H</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#P3643"><span class="nav-number">3.</span> <span class="nav-text">P3643</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ARC118E"><span class="nav-number">4.</span> <span class="nav-text">ARC118E</span></a></li></ol></div>
             
 
           </div>
