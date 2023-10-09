@@ -56,6 +56,17 @@
 <p>Code：</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span>&#123;</span><br><span class="line">	<span class="type">int</span> ans,len;</span><br><span class="line">	bitset&lt;N&gt; pre,suf;</span><br><span class="line">&#125;f[M][M];</span><br><span class="line"><span class="keyword">inline</span> Node <span class="keyword">operator</span> +(Node a,Node b)&#123;</span><br><span class="line">	<span class="keyword">if</span>(!a.len) <span class="keyword">return</span> b;</span><br><span class="line">	Node res;res.ans=a.ans+b.ans;</span><br><span class="line">	res.len=a.len+b.len;res.pre=a.pre,res.suf=b.suf;</span><br><span class="line">	<span class="keyword">if</span>(a.len&lt;n<span class="number">-1</span>) res.pre&amp;=(b.pre&gt;&gt;a.len)|(e&lt;&lt;n<span class="number">-1</span>-a.len);</span><br><span class="line">	<span class="keyword">if</span>(b.len&lt;n<span class="number">-1</span>) res.suf&amp;=(a.suf&lt;&lt;b.len)|(e&gt;&gt;n<span class="number">-1</span>-b.len);</span><br><span class="line">	<span class="keyword">if</span>(res.len&gt;=n)&#123;</span><br><span class="line">		bitset&lt;N&gt; u=a.suf&amp;b.pre;</span><br><span class="line">		<span class="keyword">if</span>(a.len&lt;n<span class="number">-1</span>) u&amp;=(e&gt;&gt;n<span class="number">-1</span>-a.len);</span><br><span class="line">		<span class="keyword">if</span>(b.len&lt;n<span class="number">-1</span>) u&amp;=(e&lt;&lt;n<span class="number">-1</span>-b.len);</span><br><span class="line">		res.ans+=u.<span class="built_in">count</span>();</span><br><span class="line">	&#125;<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h4 id="P3643"><a href="#P3643" class="headerlink" title="P3643"></a><a href="https://www.luogu.com.cn/problem/P3643">P3643</a></h4><p>有点意思的题，思维难度不弱。</p>
+<p>考虑如何直接满足递增的条件，为使得可以表述大小关系，我们将端点作为关键点，给原序列分为形如 $[p_i,p_{i+1})$ 的段，不难发现是 $O(n)$ 段的，然后对于每个学校的 $a,b$ 离散化。</p>
+<p>而不属于同一段的点显然前面段内点小于后面段内的点，现在需要算的是一个长为 $m$ 的段内放 $n$ 个点，满足<strong>非零数</strong>递增条件。</p>
+<p>考虑没有非零数的方案数，容易得出是：$\dbinom{m}{n}$。</p>
+<p>这个不妨枚举 $0$ 的位置，这个答案就是 $\sum\limits_{i&#x3D;0}^{n} \dbinom{n}{i}\dbinom{m}{n-i}$。</p>
+<p>这是个经典的范德蒙德卷积，这个其实就是 $\dbinom{m+n}{n}$，具体证明不在这里阐述。</p>
+<p>大力设计状态：$f_{i,j}$ 表示第 $i$ 所学校派出 $[p_j,p_{j+1})$ 区间内的游船，且其为区间内最大的的方案书数。</p>
+<p>考虑从 $f_{x,y}(x&lt;i,y&lt;j)$ 转移过来，设 $n&#x3D;\sum\limits_{k&#x3D;x+1}^{i} [a_k \leq i &lt;b_k],m&#x3D;p_{i+1}-p_i$，注意现在应点了 $i$ 必须在区间中，也就是必须有至少一个非 $0$ 的位置。</p>
+<p>也就是这时候的贡献系数应当是 $\sum\limits_{i&#x3D;0}^{n-1} \dbinom{n-1}{i}\dbinom{m}{n-i}&#x3D;\sum\limits_{i&#x3D;0}^{n} \dbinom{n-1}{i}\dbinom{m}{n-i}&#x3D;\dbinom{m+n-1}{n}$。</p>
+<p>转移方程就是 $f_{i,j}&#x3D;\sum\limits_{x&lt;i} \sum\limits_{y&lt;j} f_{x,y} \dbinom{m+n-1}{n}$。</p>
+<p>用前缀和技巧就可以做到 $O(n^3)$。</p>
 ]]></content>
       <tags>
         <tag>DP</tag>
