@@ -108,6 +108,25 @@
 <p>对于没有石子的点 $u_{in} \xrightarrow{(n,0)} u_{out}$。</p>
 <p>没环，最大费用最大流，输出方案记录一个点向下右的流量。</p>
 <h4 id="P3358-最长-k-可重区间集问题"><a href="#P3358-最长-k-可重区间集问题" class="headerlink" title="P3358 最长 k 可重区间集问题"></a><a href="https://www.luogu.com.cn/problem/P3358">P3358 最长 k 可重区间集问题</a></h4><p>这题放在 P3357 之前，原因是可以理解为后者是前者的加强版。</p>
+<p>考虑用将限制转化，考虑一个点可以至多被 $k$ 个区间交，那么考虑给 $k$ 个区间分组，每组中区间无交则为充要条件。</p>
+<p>应定 $k$ 组可以直接建模设置流量上界 $k$，而现在是容易建模的，拆区间为两点 $L_{i},R_{i}$，设其左右端点为 $l_i,r_i$：</p>
+<p>$S \xrightarrow{(1,0)}L_i,R_i\xrightarrow{(1,0)}T,T\xrightarrow{(k,0)} T^{\prime},L_i \xrightarrow{(1,r_i-l_i)}R_i$</p>
+<p>$R_{i} \xrightarrow{(1,0)}L_j(r_i\leq l_j)$</p>
+<p>这样建模 $m&#x3D;O(n^2)$ 直接跑肯定不够优秀。</p>
+<p>考虑优化：</p>
+<p>不妨将所有 $L_i,R_i$ 离散化拍到数列 $x&#x3D;{1,\dots,p}$ 上。</p>
+<p>建模：</p>
+<p>$S \xrightarrow{(k,0)}1,p \xrightarrow{(k,0)}T,L_i \xrightarrow{(1,r_i-l_i)}R_i$</p>
+<p>$i \xrightarrow{(k,0)} i+1(i\in[1,p))$</p>
+<p>$m&#x3D;O(n)$，最大费用最大流 $O(nmk)$。</p>
+<h4 id="P3357-最长-k-可重线段集问题"><a href="#P3357-最长-k-可重线段集问题" class="headerlink" title="P3357 最长 k 可重线段集问题"></a><a href="https://www.luogu.com.cn/problem/P3357">P3357 最长 k 可重线段集问题</a></h4><p>可能发现就是 $x$ 维做最长 $k$ 可重区间集。</p>
+<p>和 P3358 不同的是当存在一个线段平行于 $y$ 轴，则其为 $[x,x]$ 闭区间。</p>
+<p>考虑拆点，$x_{in},x_{out}$</p>
+<p>建模：</p>
+<p>$S \xrightarrow{(k,0)}1_{in},p_{out} \xrightarrow{(k,0)}T,L_{i_{out}} \xrightarrow{(1,w_i)}R_{i_{in}}(L_i\not&#x3D;R_i),L_{i_{in}} \xrightarrow{(1,w_i)}R_{i_{out}}(L_i&#x3D;R_i)$</p>
+<p>$i_{in} \xrightarrow{(k,0)} i_{out}(i\in[1,p])$</p>
+<p>$i_{out} \xrightarrow{(k,0)} (i+1)_{out}(i\in[1,p))$</p>
+<p>$m&#x3D;O(n)$，最大费用最大流 $O(nmk)$。</p>
 ]]></content>
       <tags>
         <tag>网络流</tag>
