@@ -127,7 +127,17 @@
 <p>$i_{in} \xrightarrow{(k,0)} i_{out}(i\in[1,p])$</p>
 <p>$i_{out} \xrightarrow{(k,0)} (i+1)_{out}(i\in[1,p))$</p>
 <p>$m&#x3D;O(n)$，最大费用最大流 $O(nmk)$。</p>
-]]></content>
+<h4 id="P4009-汽车加油行驶问题"><a href="#P4009-汽车加油行驶问题" class="headerlink" title="P4009 汽车加油行驶问题"></a><a href="https://www.luogu.com.cn/problem/P4009">P4009 汽车加油行驶问题</a></h4><p>和网络流没啥关系。</p>
+<p>设 $f_{i,j,k}$ 表示走到 $(i,j)$ 剩下 $k$ 个可行走单位，dij 暴力转移即可。</p>
+<h4 id="P4011-孤岛营救问题"><a href="#P4011-孤岛营救问题" class="headerlink" title="P4011 孤岛营救问题"></a><a href="https://www.luogu.com.cn/problem/P4011">P4011 孤岛营救问题</a></h4><p>由于钥匙数量很少，状压 $O(nm 2^{P})$。</p>
+<h4 id="P4012-深海机器人问题"><a href="#P4012-深海机器人问题" class="headerlink" title="P4012 深海机器人问题"></a><a href="https://www.luogu.com.cn/problem/P4012">P4012 深海机器人问题</a></h4><p>类比 P3356 即可。</p>
+<h4 id="P4013-数字梯形问题"><a href="#P4013-数字梯形问题" class="headerlink" title="P4013 数字梯形问题"></a><a href="https://www.luogu.com.cn/problem/P4013">P4013 数字梯形问题</a></h4><p>经典拆点，点边容量为 $1$ 表示点有限制不交，边间容量为 $1$ 表示边有限制不交，否则容量赋为 $+\infty$。</p>
+<p>然后跑最大费用最大流即可，无环。</p>
+<h4 id="P4014-分配问题"><a href="#P4014-分配问题" class="headerlink" title="P4014 分配问题"></a><a href="https://www.luogu.com.cn/problem/P4014">P4014 分配问题</a></h4><p>二分图最小&#x2F;大权匹配。</p>
+<h4 id="P4015-运输问题"><a href="#P4015-运输问题" class="headerlink" title="P4015 运输问题"></a><a href="https://www.luogu.com.cn/problem/P4015">P4015 运输问题</a></h4><p>同上。</p>
+<h4 id="P4016-负载平衡问题"><a href="#P4016-负载平衡问题" class="headerlink" title="P4016 负载平衡问题"></a><a href="https://www.luogu.com.cn/problem/P4016">P4016 负载平衡问题</a></h4><p>类似上下界网络流，算出 $avg$，若 $a_i&lt;avg$，连 $S\xrightarrow{(avg-a_i,0)}i$，若 $a_i&gt;avg$，连 $i\xrightarrow{(a_i-avg,0)}T$</p>
+<p>相邻边连容量为 $+\infty$ 费用为 $1$ 的边。</p>
+<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3>]]></content>
       <tags>
         <tag>网络流</tag>
         <tag>学习笔记</tag>
